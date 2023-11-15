@@ -1,9 +1,11 @@
 Here is a simple flow chart:
 
 ```mermaid
+
 sequenceDiagram
     participant browser
     participant server
+    actor User
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
