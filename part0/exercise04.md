@@ -6,7 +6,9 @@ sequenceDiagram
     participant browser
     participant server
     actor User
-
+    User ->>browser: Enter note
+     
+    
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
     server-->>browser: HTML document
