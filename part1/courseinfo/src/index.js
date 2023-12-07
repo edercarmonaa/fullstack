@@ -5,7 +5,7 @@ import { getValue } from "@testing-library/user-event/dist/utils";
 
 
 const Header=(props)=>{
-  return <h1>{props.course.name}</h1>
+  return <h1>{props.name}</h1>
 }
 
 const Part=(props)=>{
@@ -17,12 +17,12 @@ const Part=(props)=>{
   )
 }
 const Content =(props) =>{
-  console.log(props.course)
+  console.log(props.parts)
   return (
    <div>
-   <Part part={props.course.parts[0].name} exercises={props.course.parts[0].exercises}/>  
-   <Part part={props.course.parts[1].name} exercises={props.course.parts[1].exercises}/>
-   <Part part={props.course.parts[2].name} exercises={props.course.parts[2].exercises}/> 
+   <Part part={props.parts[0].name} exercises={props.parts[0].exercises}/>  
+   <Part part={props.parts[1].name} exercises={props.parts[1].exercises}/>
+   <Part part={props.parts[2].name} exercises={props.parts[2].exercises}/> 
    </div>
   )
 }
@@ -30,7 +30,7 @@ const Content =(props) =>{
 
 const Total=(props)=>{
   return(
-    <p>Number of exercises {props.course.parts[0].exercises + props.course.parts[1].exercises + props.course.parts[2].exercises}</p>
+    <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
   )
 }
 
@@ -55,9 +55,9 @@ const App = () => {
   }
   return (
     <div>
-      <Header course={course} />
-      <Content course={course} />
-      <Total course={course}/>
+      <Header course={course.name} />
+      <Content parts={course.parts} />
+      <Total parts={course.parts}/>
     </div>
   )
 }
