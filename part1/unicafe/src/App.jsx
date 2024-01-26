@@ -53,13 +53,24 @@ const Button = ({ handleClick, text }) => (
   </button>
 )
 
+
 const Staticline = (props) => {
-  return(
-    <tr>
-      <td>{props.text}</td>
-      <td>{props.value}</td>
-    </tr>
-  )
+  if(props.text == "positive"){
+    return(
+      <tr>
+        <td>{props.text}</td>
+        <td>{props.value}%</td>
+      </tr>
+    )
+  }else{
+    return(
+      <tr>
+        <td>{props.text}</td>
+        <td>{props.value}</td>
+      </tr>
+    )
+  }
+  
 }
 
 const App = () => {
