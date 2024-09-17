@@ -1,27 +1,12 @@
 
-const Header = ({ course }) => <h1>{course}</h1>
+const Header = ({ course }) => <h2>{course}</h2>
 
-const Total = ({ parts }) => {
-  const initialValue = 0;
-  /*const total = 
-  parts.reduce((s, p) => s.exercises + p.exercises,
-  0,)*/
-
-  const total = parts.reduce((s, p) => {
-    console.log('what is happening', s, p)
-    return s;
-  })
-  /*const initialValue = 0;
-    const copyItems = [];
-    parts.forEach((item) => {
-      copyItems.push(item.exercises);
-    });
-    const sumWithInitial = copyItems.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-     initialValue,
-    );*/
-    return (
-        <p>Number of exercises {total}</p>
+const Total = ({ parts }) => { 
+  const Total = parts.reduce((total, part) => {
+    return total + part.exercises;
+  }, 0);
+  return (
+        <p>Total of {Total} exercises </p>
     )
 }
 
@@ -41,15 +26,15 @@ const Content = ({ parts }) => {
   )
 }
 
-    
-
 const Course = ({ courses }) => {
-    return (
-        <div>
-        <Header course={courses.name} />
-        <Content parts={courses.parts} />
-        <Total parts={courses.parts} />
+  return (
+    courses.map(course=>
+      <div key={course.id}>
+        <Header course={course.name} />
+        <Content parts={course.parts} />
+        <Total parts={course.parts} />
       </div>
+    )
     )
   }
   
