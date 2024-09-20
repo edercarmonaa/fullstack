@@ -77,5 +77,4 @@ import personService from '../services/persons'
       </form>
     )
   }
-  
   export default PersonForm
