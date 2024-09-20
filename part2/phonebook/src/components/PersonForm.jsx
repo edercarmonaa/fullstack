@@ -1,5 +1,5 @@
 import personService from '../services/persons'
-  const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNewNumber }) => {
+  const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNewNumber, setMessage, setError}) => {
     
     const addPerson = (event) => {
       event.preventDefault()
@@ -17,14 +17,24 @@ import personService from '../services/persons'
             .update(resultado.id, changedPerson)
             .then(returnedPerson => {
               setPersons(persons.map(person => person.id !== resultado.id ? person : returnedPerson))
+              setMessage(
+                `Update '${person.name}' `
+              )
+              setTimeout(() => {
+                setMessage(null)
+              }, 5000)
             })
             .catch(error => {
-              console.log(error)
-              alert(
-                `the note '${person.name}' was already deleted from server`
-              )
               setPersons(persons.filter(p => p.id !== resultado.id))
+              setError(
+                `Information of '${person.name}' was already deleted from server`
+              )
+              setTimeout(() => {
+                setError(null)
+              }, 5000)
             })
+            setNewName('')
+            setNewNumber('')
         }
         }else{
           personService
@@ -32,10 +42,17 @@ import personService from '../services/persons'
           .then(returnedPerson => {
             setPersons(persons.concat(returnedPerson))
           })
-        }
-        setNewName('')
+          setNewName('')
         setNewNumber('')
+        setMessage(
+          `Added '${personObject.name}' `
+        )
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+        }
     }  
+    
     const handleNameChange = (event) => {
         setNewName(event.target.value)
       }
