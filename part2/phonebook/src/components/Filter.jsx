@@ -2,7 +2,6 @@
 
 const Filter = ({ newFilter, setFNewFilter }) => {
     const handleFilterChange = (event) => {
-        console.log(event.target.value)
         setFNewFilter(event.target.value)
     }
 

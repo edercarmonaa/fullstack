@@ -1,33 +1,46 @@
+import personService from '../services/persons'
   const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNewNumber }) => {
-    const addPerson = (event) => {
-        event.preventDefault()
-        const personObject = {
-          name: newName,
-          number: newNumber,
-          id: persons.length + 1,
-        }
-        
-        const resultado = persons.find((person) => person.name === newName);
-        let thereIs = resultado ? true : false;
-        if (thereIs) {
-          let message = `${newName} is already added to phonebook`
-          alert(message);
     
+    const addPerson = (event) => {
+      event.preventDefault()
+      const personObject = {
+        name: newName,
+        number: newNumber,
+      }
+      const resultado = persons.find((person) => person.name === newName);
+      let thereIs = resultado ? true : false;
+        if (thereIs) {
+          if (window.confirm(`'${resultado.name}' is already added phonebook, replace the old number with new number?`)) {
+            const person = persons.find(p => p.id === resultado.id)
+            const changedPerson = { ...person, number: newNumber }
+            personService
+            .update(resultado.id, changedPerson)
+            .then(returnedPerson => {
+              setPersons(persons.map(person => person.id !== resultado.id ? person : returnedPerson))
+            })
+            .catch(error => {
+              console.log(error)
+              alert(
+                `the note '${person.name}' was already deleted from server`
+              )
+              setPersons(persons.filter(p => p.id !== resultado.id))
+            })
+        }
         }else{
-          setPersons(persons.concat(personObject))
+          personService
+          .create(personObject)
+          .then(returnedPerson => {
+            setPersons(persons.concat(returnedPerson))
+          })
         }
         setNewName('')
         setNewNumber('')
-      }
-    
-    
+    }  
     const handleNameChange = (event) => {
-        console.log(event.target.value)
         setNewName(event.target.value)
       }
     
       const handleNumberChange = (event) => {
-        console.log(event.target.value)
         setNewNumber(event.target.value)
       }
 
